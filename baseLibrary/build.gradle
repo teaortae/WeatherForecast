@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 17
+        targetSdk 33
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+    namespace 'com.tae.baselibrary'
+}
+
+dependencies {
+
+    def lifecycleVersion = "2.5.1"
+    def retrofitVersion = "2.9.0"
+    def okhttp3Version = "4.9.3"
+    def koinVersion = '3.1.5'
+    def stethoVersion = "1.6.0"
+    def gsonVersion = "2.9.0"
+    def appcompatVersion = "1.5.1"
+    def coreKtxVersion = "1.9.0"
+    def supportVersion = "1.0.0"
+    def logVersion = "2.2.0"
+
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.legacy:legacy-support-v4:$supportVersion"
+
+    //di koin
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+
+    // gson, retrofit2, okhttp3
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3Version"
+
+    // lifecycle extension
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
+
+    //facebook stetho
+    implementation "com.facebook.stetho:stetho:$stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion" //http debugging
+
+    //Simple, pretty and powerful logger
+    implementation "com.orhanobut:logger:$logVersion"
+    implementation 'org.jsoup:jsoup:1.13.1'
+}
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                // Applies the component for the release build variant.
+                from components.release
+
+                // You can then customize attributes of the publication as shown below.
+                groupId = 'com.github.teaortae'
+                artifactId = 'final'
+                version = '0.1.0.03'
+            }
+        }
+    }
+}

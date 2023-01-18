@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.weatherforecast'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.weatherforecast"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+}
+
+dependencies {
+    implementation project(path: ':baseLibrary')
+    def koinVersion = "3.1.5"
+    def appcompatVersion = '1.6.0'
+    def coreKtxVersion = "1.9.0"
+    def supportVersion = "1.0.0"
+    def materialVersion = "1.7.0"
+    def constraintLayoutVersion = "2.1.4"
+    def lifeCycleVersion = "2.5.1"
+    def logVersion = "2.2.0"
+    def gsonVersion = "2.9.0"
+    def retrofitVersion = "2.9.0"
+    def okhttp3Version = "4.9.3"
+    def epoxyVersion = "4.3.1"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //life cycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion"
+
+    //android
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.legacy:legacy-support-v4:$supportVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+
+    // gson, retrofit2, okhttp3
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp3Version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp3Version"
+
+    //di koin
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+
+    //base lib
+    implementation project(path: ':baseLibrary')
+//    implementation 'com.github.teaortae.BaseLibrary:final:v0.1.0.02'
+
+    //epoxy
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy-databinding:$epoxyVersion"
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+
+    //Simple, pretty and powerful logger
+    implementation "com.orhanobut:logger:$logVersion"
+}
