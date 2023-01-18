@@ -77,8 +77,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, WeatherVMImpl>(R.layout.a
 
             }
             App.INSTANCE.progressDialog?.dismiss()
-        }
-            .launchIn(lifecycleScope)
+        }.launchIn(lifecycleScope)
     }
 }
 

@@ -161,7 +161,7 @@ data class Main(
 ) {
     val minMaxTemp: String
         get() {
-            return "Mix : ${tempMax.roundToInt()}°C   Min : ${tempMin.roundToInt()}°C"
+            return "Max : ${tempMax.roundToInt()}°C   Min : ${tempMin.roundToInt()}°C"
         }
 }
 
